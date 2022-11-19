@@ -22,3 +22,6 @@ class BaseFormClass(ABC):
     def load(self):
         self.addContents()
         self.Window.mainloop()
+
+    def closeForm(self):
+        self.Window.destroy()

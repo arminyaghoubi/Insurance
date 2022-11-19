@@ -17,7 +17,7 @@ class LoginFormClass(BaseFormClass):
                 with open("UserPassData.csv", "w") as file:
                     print(user.UserName, user.Password, sep=",", file=file)
 
-            self.Window.destroy()
+            super().closeForm()
             maniForm = MainFormClass(user)
             maniForm.load()
     def showPasswrodCheckBoxClick(self):
