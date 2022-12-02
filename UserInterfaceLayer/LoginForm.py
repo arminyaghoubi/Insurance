@@ -2,6 +2,7 @@ from tkinter import messagebox as msg
 from Model.UserModel import *
 from customtkinter import *
 from UserInterfaceLayer import *
+from BusinessLogicLayer import UserBusinessLogic
 
 
 class LoginFormClass(BaseFormClass):
@@ -9,17 +10,17 @@ class LoginFormClass(BaseFormClass):
         super().__init__("Login Form")
 
     def loginButtonClick(self):
-        user = User(self.userNameEntry.get(), self.passwordEntry.get())
-        if user.UserName.lower() != "admin" or user.Password.lower() != "admin":
+        user = UserBusinessLogic().GetUser(self.userNameEntry.get(), self.passwordEntry.get())
+        if user == None:
             msg.showerror("Error", "Username or password is incorrect")
         else:
             if self.rememberUserNameCheckBox.get():
                 with open("UserPassData.csv", "w") as file:
-                    print(user.UserName, user.Password, sep=",", file=file)
-
+                    print(user.UserName, user.Password, sep=",", end="", file=file)
             super().closeForm()
             maniForm = MainFormClass(user)
             maniForm.load()
+
     def showPasswrodCheckBoxClick(self):
         if self.showPassword == "*":
             self.showPassword = ""
